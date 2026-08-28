@@ -1,6 +1,11 @@
 # CamAtt
 
 CamAtt is a local-first employee attendance MVP. A React dashboard manages employees and attendance, Spring Boot owns business data, and a FastAPI/InsightFace service watches the laptop webcam and reports recognized faces.
+<img width="1902" height="869" alt="image" src="https://github.com/user-attachments/assets/859a20a0-77f5-4b4d-8e5c-4f4da775a039" />
+
+<img width="1911" height="876" alt="image" src="https://github.com/user-attachments/assets/bf51cf67-fc54-45c9-9c47-d1f03dc100cb" />
+<img width="1920" height="880" alt="image" src="https://github.com/user-attachments/assets/b7ec037c-ed88-47b4-80ec-7d89a634a14b" />
+<img width="1916" height="870" alt="image" src="https://github.com/user-attachments/assets/f6bc8625-caa6-44e7-b875-38fa20f0593c" />
 
 ## Architecture
 
