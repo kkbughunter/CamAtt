@@ -1,0 +1,56 @@
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-camatt}
+      MYSQL_USER: ${MYSQL_USER:-camatt}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-camatt_local}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-camatt_root_local}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-camatt_root_local}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  backend:
+    build: ./backend
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-camatt}?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+      DB_USERNAME: ${MYSQL_USER:-camatt}
+      DB_PASSWORD: ${MYSQL_PASSWORD:-camatt_local}
+      AI_SERVICE_URL: ${AI_SERVICE_URL:-http://ai-service:8000}
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./storage:/app/storage
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  ai-service:
+    build: ./ai-service
+    environment:
+      BACKEND_URL: http://backend:8080/api
+      CAMERA_INDEX: 0
+      STORAGE_PATH: /app/storage
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ai-service/data:/app/data
+      - ./storage:/app/storage
+    depends_on:
+      - backend
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:

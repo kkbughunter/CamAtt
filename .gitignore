@@ -1,0 +1,16 @@
+node_modules/
+dist/
+target/
+build/
+.gradle/
+.idea/
+.vscode/
+*.iml
+__pycache__/
+*.py[cod]
+.venv/
+.env
+storage/*
+!storage/.gitkeep
+ai-service/data/*
+!ai-service/data/.gitkeep

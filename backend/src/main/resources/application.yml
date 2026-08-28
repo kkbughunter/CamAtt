@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: camatt-backend
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/camatt?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  servlet:
+    multipart:
+      max-file-size: 8MB
+      max-request-size: 24MB
+server:
+  port: 8080
+camatt:
+  storage-path: ${STORAGE_PATH:./storage}
+  ai-service-url: ${AI_SERVICE_URL:http://localhost:8000}
+  attendance:
+    workday-start: ${WORKDAY_START:09:15}
+    minimum-session-minutes: ${ATTENDANCE_MIN_SESSION_MINUTES:0}
+    recognition-cooldown-seconds: ${RECOGNITION_COOLDOWN_SECONDS:5}
