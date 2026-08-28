@@ -61,6 +61,34 @@ cd backend
 ```
 
 The default configuration expects MySQL. For backend-only development without MySQL, use `.\gradlew.bat bootRun --args="--spring.profiles.active=dev"`; the `dev` profile uses an in-memory H2 database.
+## AI/ML technologies:
+
+- **InsightFace** — the main face-recognition library.
+- **Buffalo_L model** — InsightFace’s pretrained model package for face detection, facial landmarks, and recognition.
+- **ONNX Runtime** — runs the pretrained InsightFace models locally on the laptop’s CPU.
+- **OpenCV** — captures webcam frames and handles image processing.
+- **Face embeddings** — converts each employee’s face into a numerical representation.
+- **Similarity matching** — compares a detected face embedding with registered employee embeddings using a confidence threshold.
+
+No custom model is trained. The system uses pretrained InsightFace models and registers employees by storing face embeddings generated from their 2–3 photos.
+
+The recognition flow is:
+
+```text
+Webcam frame
+    ↓
+Detect face
+    ↓
+Align and normalize face
+    ↓
+Generate face embedding
+    ↓
+Compare with registered embeddings
+    ↓
+Identify employee
+    ↓
+Record Check-In or Check-Out
+```
 
 ## Attendance policy
 
